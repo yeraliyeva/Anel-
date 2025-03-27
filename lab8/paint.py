@@ -18,7 +18,7 @@ pygame.display.flip()  # Update the display
 colors = [RED, GREEN, BLUE]  # List of available colors
 color = BLACK  # Default color
 
-eraser = pygame.image.load('eraser.webp')  # Load eraser image
+eraser = pygame.image.load('/Users/yeraliyeva/Desktop/eraser.png')  # Load eraser image
 eraser = pygame.transform.scale(eraser, (70, 70))  # Resize image
 eraser_rect = eraser.get_rect(topleft=(1010, 0))  # Define rectangle area for eraser
 
@@ -47,7 +47,7 @@ def painting(color, mode):
     x, y = pygame.mouse.get_pos()
     if click[0] and not (0 <= x <= 400 and 0 <= y <= 90):
         if mode == 'circle':
-            pygame.draw.circle(screen, color, (x, y), 27)
+            pygame.draw.circle(screen, color, (x, y), 27,4)
         elif mode == 'rect':
             pygame.draw.rect(screen, color, (x, y, 40, 40), 4)
         elif mode == 'equal_triangle':
