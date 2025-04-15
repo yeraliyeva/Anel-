@@ -19,7 +19,7 @@ pygame.display.set_caption("Racer")
 
 # Картинки
 background = pygame.image.load('/Users/yeraliyeva/Desktop/AnimatedStreet.png')
-player_img = pygame.image.load('/Users/yeraliyeva/Desktop/Player.png')
+player_img = pygame.image.load('/Users/yeraliyeva/Desktop/car2.png')
 enemy_img = pygame.image.load('/Users/yeraliyeva/Desktop/Enemy.png')
 coin_img = pygame.image.load('/Users/yeraliyeva/Desktop/Coin.png')
 
@@ -29,6 +29,7 @@ pink_coin_img = pygame.image.load('/Users/yeraliyeva/Desktop/pink.png')  # Ро�
 minus_coin_img = pygame.image.load('/Users/yeraliyeva/Desktop/red.png')  # Минус монета (для штрафов)
 
 # Изменяем размер монет на 100x100 пикселей
+
 red_coin_img = pygame.transform.scale(red_coin_img, (100, 100))  # Красная монета с фоном
 pink_coin_img = pygame.transform.scale(pink_coin_img, (100, 100))  # Розовая монета с фоном
 minus_coin_img = pygame.transform.scale(minus_coin_img, (100, 100))  # Минус монета (для штрафов)

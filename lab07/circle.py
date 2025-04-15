@@ -1,57 +1,58 @@
 import pygame
 pygame.init()
 
-W,H = 600,400
-WHITE = (255,255,255)
-RED = (255,0,0)
+W, H = 600, 400  
+WHITE = (255, 255, 255)  
+RED = (255, 0, 0) 
+sc = pygame.display.set_mode((W, H), pygame.RESIZABLE) 
 
-sc = pygame.display.set_mode((W,H), pygame.RESIZABLE)
+clock = pygame.time.Clock()  
+FPS = 60  # Частота обновления экрана (60 кадров в секунду)
 
-clock = pygame.time.Clock()
-FPS = 60
+x = W // 2  # Начальная позиция по оси X (в центре)
+y = H // 2  # Начальная позиция по оси Y (в центре)
+speed = 5  # Скорость движения
+circle_radius = 25  # Радиус круга
 
-x = W // 2
-y = H //2
-speed = 5
-circle_radius = 25
-
-flUp = flDown =flLeft = flRight = False
+flUp = flDown = flLeft = flRight = False  # Флаги для направления движения
 
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT: 
-                flLeft = True
-            elif event.key == pygame.K_RIGHT:
-                flRight = True
-            elif event.key == pygame.K_UP:
-                flUp = True
-            elif event.key == pygame.K_DOWN:
-                flDown = True
-        elif event.type == pygame.KEYUP:
-            if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_DOWN, pygame.K_UP]:
-                flUp = flDown = flLeft = flRight = False
-        elif event.type == pygame.VIDEORESIZE:
-            W, H = event.size 
-            x = W // 2 
-            y = H // 2
-            sc = pygame.display.set_mode((W, H), pygame.RESIZABLE)
+    for event in pygame.event.get():  # Обработка событий
+        if event.type == pygame.QUIT:  # Если закрытие окна
+            exit()  # Завершаем программу
+        elif event.type == pygame.KEYDOWN:  # Если клавиша нажата
+            if event.key == pygame.K_LEFT:  # Если нажата клавиша "влево"
+                flLeft = True  # Устанавливаем флаг для движения влево
+            elif event.key == pygame.K_RIGHT:  # Если нажата клавиша "вправо"
+                flRight = True  # Устанавливаем флаг для движения вправо
+            elif event.key == pygame.K_UP:  # Если нажата клавиша "вверх"
+                flUp = True  # Устанавливаем флаг для движения вверх
+            elif event.key == pygame.K_DOWN:  # Если нажата клавиша "вниз"
+                flDown = True  # Устанавливаем флаг для движения вниз
+        elif event.type == pygame.KEYUP:  # Если клавиша отпущена
+            if event.key in [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_DOWN, pygame.K_UP]:  # Для всех стрелок
+                flUp = flDown = flLeft = flRight = False  # Сбрасываем все флаги
 
-    if flLeft and x > 0:
-        x -= speed
-    elif flRight and x < W:
-        x += speed
-    if flUp and y > 0:
-        y -= speed
-    elif flDown and y < H:
-        y += speed
+        elif event.type == pygame.VIDEORESIZE:  # Если окно изменило размер
+            W, H = event.size  # Обновляем размеры окна
+            x = W // 2  # Центрируем круг по X
+            y = H // 2  # Центрируем круг по Y
+            sc = pygame.display.set_mode((W, H), pygame.RESIZABLE)  # Обновляем окно
 
+    # Движение по горизонтали
+    if flLeft and x > 25:  # Если флаг движения влево и шарик не выходит за левую границу
+        x -= speed  # Двигаем шарик влево
+    elif flRight and x < W:  # Если флаг движения вправо и шарик не выходит за правую границу
+        x += speed  # Двигаем шарик вправо
 
-    sc.fill(WHITE)
-    pygame.draw.circle(sc, RED, (x, y), circle_radius)
-    pygame.display.update()
-            
+    # Движение по вертикали
+    if flUp and y > 25:  # Если флаг движения вверх и шарик не выходит за верхнюю границу
+        y -= speed  # Двигаем шарик вверх
+    elif flDown and y < H:  # Если флаг движения вниз и шарик не выходит за нижнюю границу
+        y += speed  # Двигаем шарик вниз
 
-    clock.tick(FPS)
+    sc.fill(WHITE)  # Заполняем экран белым цветом
+    pygame.draw.circle(sc, RED, (x, y), circle_radius)  # Рисуем круг на новом месте
+    pygame.display.update()  # Обновляем экран
+
+    clock.tick(FPS)  # Задержка для ограничения FPS (60 кадров в секунду)
