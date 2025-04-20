@@ -31,8 +31,7 @@ def create_table():
             print("Таблица создана.")
 
 def insert_from_console():
-    name = input("Введите имя: ")
-    phone = input("Введите номер телефона: ")
+    
     try:
         with get_connection() as conn:
             with conn.cursor() as cur:
@@ -66,12 +65,14 @@ def update_data():
     query_parts = []
     values = []
 
-    if new_name:
+    if new_name :
         query_parts.append("first_name = %s")
         values.append(new_name)
-    if new_phone:
+    
+    if new_phone :
         query_parts.append("phone = %s")
         values.append(new_phone)
+
 
     if not query_parts:
         print("Нет данных для обновления.")
@@ -88,7 +89,7 @@ def update_data():
                 if cur.rowcount:
                     print("Обновление выполнено.")
                 else:
-                    print("Контакт не найден.")
+                    print("Контакт не имеется")
                 conn.commit()
     except Exception as e:
         print("Ошибка:", e)

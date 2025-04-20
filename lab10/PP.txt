@@ -1,0 +1,85 @@
+-- Добавление одного контакта
+INSERT INTO phonebook (first_name, phone) VALUES ('John Doe', '1234567890');
+
+-- Добавление нескольких контактов
+INSERT INTO phonebook (first_name, phone) 
+VALUES 
+    ('Jane Smith', '0987654321'),
+    ('Michael Johnson', '1122334455');
+
+
+
+-- Обновление имени для определенного номера телефона
+UPDATE phonebook SET first_name = 'Johnathan Doe' WHERE phone = '1234567890';
+
+-- Обновление номера телефона для определенного имени
+UPDATE phonebook SET phone = '9876543210' WHERE first_name = 'John Doe';
+
+
+-- Удаление записи по имени
+DELETE FROM phonebook WHERE first_name = 'John Doe';
+
+-- Удаление записи по номеру телефона
+DELETE FROM phonebook WHERE phone = '1234567890';
+
+
+-- Выбор всех записей из таблицы
+SELECT * FROM phonebook;
+
+-- Выбор только определенных столбцов (имя и номер телефона)
+SELECT first_name, phone FROM phonebook;
+
+-- Поиск контактов по имени (с учетом регистра)
+SELECT * FROM phonebook WHERE first_name = 'John Doe';
+
+-- Поиск контактов по части имени (с помощью шаблона)
+SELECT * FROM phonebook WHERE first_name LIKE '%John%';
+
+-- Поиск контактов по телефону (с учетом части номера)
+SELECT * FROM phonebook WHERE phone LIKE '%123%';
+
+-- Выбор с сортировкой по имени
+SELECT * FROM phonebook ORDER BY first_name ASC;
+
+-- Ограничение количества строк
+SELECT * FROM phonebook LIMIT 10 OFFSET 20;
+
+
+-- Подсчет количества записей
+SELECT COUNT(*) FROM phonebook;
+
+-- Нахождение максимального и минимального значения
+SELECT MAX(phone) FROM phonebook;
+SELECT MIN(phone) FROM phonebook;
+
+-- Среднее значение
+SELECT AVG(score) FROM user_score;
+
+-- Сумма всех значений
+SELECT SUM(score) FROM user_score;
+
+
+-- Внутреннее соединение таблиц users и user_score по id пользователя
+SELECT users.first_name, user_score.score
+FROM users
+JOIN user_score ON users.id = user_score.user_id;
+
+-- Левое соединение (LEFT JOIN) — выбирает все строки из левой таблицы
+SELECT users.first_name, user_score.score
+FROM users
+LEFT JOIN user_score ON users.id = user_score.user_id;
+
+-- Правое соединение (RIGHT JOIN) — выбирает все строки из правой таблицы
+SELECT users.first_name, user_score.score
+FROM users
+RIGHT JOIN user_score ON users.id = user_score.user_id;
+
+-- Проверка, является ли телефон валидным (с использованием регулярных выражений)
+SELECT * FROM phonebook WHERE phone ~ '^[0-9]{10}$';
+
+
+-- Группировка по имени пользователя и подсчет количества пользователей
+SELECT first_name, COUNT(*) FROM phonebook GROUP BY first_name;
+
+-- Группировка по уровню и подсчет суммы очков для каждого уровня
+SELECT level, SUM(score) FROM user_score GROUP BY level;
